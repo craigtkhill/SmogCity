@@ -4,7 +4,8 @@ import ControlPanel from "./ControlPanel";
 import { useGameContext } from "../lib/GameContext";
 
 const CityView: React.FC = () => {
-  const { imageUrl } = useGameContext();
+  const gameContext = useGameContext();
+  const imageUrl = gameContext ? gameContext.imageUrl : "";
 
   return (
     <div className="city-view">
