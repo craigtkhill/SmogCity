@@ -1,6 +1,7 @@
 // app/components/CityView.tsx
+"use client";
+
 import React from "react";
-import Image from "next/image";
 import ControlPanel from "./ControlPanel";
 import { useGameContext } from "../lib/GameContext";
 

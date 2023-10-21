@@ -1,4 +1,6 @@
 // app/components/ControlPanel.tsx
+"use client";
+
 import React, { useState, useCallback, ChangeEvent, FormEvent } from "react";
 import { useGameContext } from "../lib/GameContext";
 import Resources from "./Resources";
