@@ -6,7 +6,7 @@ import { useGameContext } from "../lib/GameContext";
 
 const CityView: React.FC = () => {
   const gameContext = useGameContext();
-  const imageUrl = (gameContext as any)?.imageUrl || "";
+  const imageUrl = gameContext ? gameContext.imageUrl : "";
 
   return (
     <div className="city-view">

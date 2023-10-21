@@ -1,11 +1,25 @@
 // app/lib/GameContext.tsx
-
-import React, { createContext, useState, useCallback, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useContext,
+  ReactNode,
+} from "react";
 import game from "./gameLogic";
 
-const GameContext = createContext(null);
+type GameContextType = {
+  imageUrl: string;
+  handleUserInput: () => void;
+};
 
-export const GameProvider: React.FC = ({ children }) => {
+const GameContext = createContext<GameContextType | null>(null);
+
+type GameProviderProps = {
+  children: ReactNode;
+};
+
+export const GameProvider = ({ children }: GameProviderProps) => {
   const [imageUrl, setImageUrl] = useState(game.getImageUrl());
 
   const handleUserInput = useCallback(() => {
@@ -21,5 +35,9 @@ export const GameProvider: React.FC = ({ children }) => {
 };
 
 export const useGameContext = () => {
-  return useContext(GameContext);
+  const context = useContext(GameContext);
+  if (!context) {
+    throw new Error("useGameContext must be used within a GameProvider");
+  }
+  return context;
 };

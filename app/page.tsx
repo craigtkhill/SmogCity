@@ -1,18 +1,44 @@
-// app/page.tsx
-"use client";
+// app/lib/GameContext.tsx
 
-import React from "react";
-import { GameProvider } from "./lib/GameContext";
-import CityView from "./components/CityView";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useContext,
+  ReactNode,
+} from "react";
+import game from "./gameLogic";
 
-const Page: React.FC = () => {
+type GameContextType = {
+  imageUrl: string;
+  handleUserInput: () => void;
+};
+
+const GameContext = createContext<GameContextType | null>(null);
+
+type GameProviderProps = {
+  children: ReactNode;
+};
+
+export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
+  const [imageUrl, setImageUrl] = useState<string>(game.getImageUrl());
+
+  const handleUserInput = useCallback(() => {
+    game.handleUserInput();
+    setImageUrl(game.getImageUrl());
+  }, []);
+
   return (
-    <GameProvider>
-      <div className="game-container">
-        <CityView />
-      </div>
-    </GameProvider>
+    <GameContext.Provider value={{ imageUrl, handleUserInput }}>
+      {children}
+    </GameContext.Provider>
   );
 };
 
-export default Page;
+export const useGameContext = () => {
+  const context = useContext(GameContext);
+  if (!context) {
+    throw new Error("useGameContext must be used within a GameProvider");
+  }
+  return context;
+};

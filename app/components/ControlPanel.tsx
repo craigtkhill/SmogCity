@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import Image from "next/image";
+// app/components/ControlPanel.tsx
+import React, { useState, useCallback, ChangeEvent, FormEvent } from "react";
 import { useGameContext } from "../lib/GameContext";
 import Resources from "./Resources";
 import { educationalResources } from "../resources";
@@ -13,13 +13,16 @@ const ControlPanel: React.FC = () => {
 
   const currentPair = educationalResources[level];
 
-  const handleCommandChange = useCallback((event) => {
-    setCommand(event.target.value);
-    setError(""); // Clear error on typing
-  }, []);
+  const handleCommandChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setCommand(event.target.value);
+      setError(""); // Clear error on typing
+    },
+    []
+  );
 
   const handleCommandSubmit = useCallback(
-    (event) => {
+    (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const correct =
         command.toLowerCase() === currentPair.innovation.toLowerCase();
