@@ -9,7 +9,7 @@ import React, {
   useContext,
   ReactNode,
 } from "react";
-import game from "./lib/gameLogic";
+import game from "../lib/gameLogic";
 
 type GameContextType = {
   imageUrl: string;
