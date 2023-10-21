@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import Image from "next/image";
 import { useGameContext } from "../lib/GameContext";
 import Resources from "./Resources";
 import { educationalResources } from "../resources";
